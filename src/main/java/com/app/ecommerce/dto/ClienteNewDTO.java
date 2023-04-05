@@ -19,6 +19,10 @@ public class ClienteNewDTO implements Serializable {
 	
 	@Getter
 	@Setter
+	private Integer cliTipo;
+	
+	@Getter
+	@Setter
 	private String cliCpfCnpj;
 	
 	@Getter

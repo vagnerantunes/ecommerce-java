@@ -13,6 +13,7 @@ import com.app.ecommerce.dto.ClienteNewDTO;
 import com.app.ecommerce.entities.Cliente;
 import com.app.ecommerce.entities.Endereco;
 import com.app.ecommerce.enums.AtivoBloqStatus;
+import com.app.ecommerce.enums.TipoCliente;
 import com.app.ecommerce.repositories.ClienteRepository;
 import com.app.ecommerce.repositories.EnderecoRepository;
 import com.app.ecommerce.services.exceptions.ResourceNotFoundException;
@@ -65,13 +66,13 @@ public class ClienteService {
 	}
 	
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getCliId(), objDto.getCliNome(), objDto.getCliCelular(), objDto.getCliCpfCnpj(),
+		return new Cliente(objDto.getCliId(), objDto.getCliNome(), objDto.getCliCelular(), objDto.getCliTipo(),objDto.getCliCpfCnpj(),
 				objDto.getCliEmail(), objDto.getCliStatus());
 	}
 	
 	public Cliente fromDTO(ClienteNewDTO objDto) {
-		Cliente cli = new Cliente(null, objDto.getCliNome(), objDto.getCliCelular(), objDto.getCliCpfCnpj(), objDto.getCliEmail(),
-				AtivoBloqStatus.toEnum(objDto.getCliStatus()));
+		Cliente cli = new Cliente(null, objDto.getCliNome(), objDto.getCliCelular(), TipoCliente.toEnum(objDto.getCliTipo()),
+				objDto.getCliCpfCnpj(), objDto.getCliEmail(), AtivoBloqStatus.toEnum(objDto.getCliStatus()));
 
 		Endereco end = new Endereco(null, cli, objDto.getEndLogradouro(), objDto.getEndNumero(),
 				 objDto.getEndBairro(), objDto.getEndCidade(), objDto.getEndEstado(), objDto.getEndCep());

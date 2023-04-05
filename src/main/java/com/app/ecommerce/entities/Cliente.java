@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.app.ecommerce.enums.AtivoBloqStatus;
+import com.app.ecommerce.enums.TipoCliente;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -48,10 +49,8 @@ public class Cliente implements Serializable {
 	@Column(length = 15, name = "CLI_CELULAR")
 	private String cliCelular;
 	
-	@Getter
-	@Setter
 	@Column(name = "CLI_TIPO")
-	private String cliTipo;
+	private Integer cliTipo;
 	
 	@Getter
 	@Setter
@@ -70,11 +69,12 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-	public Cliente(Integer cliId, String cliNome, String cliCelular, String cliCpfCnpj, String cliEmail, AtivoBloqStatus cliStatus) {
+	public Cliente(Integer cliId, String cliNome, String cliCelular,TipoCliente cliTipo,String cliCpfCnpj, String cliEmail, AtivoBloqStatus cliStatus) {
 		super();
 		this.cliId = cliId;
 		this.cliNome = cliNome;
 		this.cliCelular = cliCelular;
+		this.cliTipo = (cliTipo==null) ? null : cliTipo.getCod();
 		this.cliCpfCnpj = cliCpfCnpj;
 		this.cliEmail = cliEmail;
 		this.cliStatus = (cliStatus==null) ? null : cliStatus.getCod();
@@ -85,6 +85,14 @@ public class Cliente implements Serializable {
 	}
 
 	public void setCliStatus(AtivoBloqStatus cliStatus) {
+		this.cliStatus = cliStatus.getCod();
+	}
+	
+	public TipoCliente getCliTipo() {
+		return TipoCliente.toEnum(cliStatus);
+	}
+
+	public void setCliTipo(TipoCliente cliStatus) {
 		this.cliStatus = cliStatus.getCod();
 	}
 }

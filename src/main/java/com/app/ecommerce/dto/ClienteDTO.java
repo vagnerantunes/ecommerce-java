@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.app.ecommerce.entities.Cliente;
 import com.app.ecommerce.enums.AtivoBloqStatus;
+import com.app.ecommerce.enums.TipoCliente;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,6 @@ public class ClienteDTO implements Serializable {
 	@Setter
 	private Integer cliId;
 
-	
 	@Getter
 	@Setter
 	private String cliNome;
@@ -24,6 +24,10 @@ public class ClienteDTO implements Serializable {
 	@Getter
 	@Setter
 	private String cliCelular;
+	
+	@Getter
+	@Setter
+	private TipoCliente cliTipo;
 	
 	@Getter
 	@Setter
@@ -44,6 +48,7 @@ public class ClienteDTO implements Serializable {
 		cliId = obj.getCliId();
 		cliNome = obj.getCliNome();
 		cliCelular = obj.getCliCelular();
+		cliTipo = obj.getCliTipo();
 		cliCpfCnpj = obj.getCliCpfCnpj();
 		cliEmail = obj.getCliEmail();
 		cliStatus = obj.getCliStatus();
