@@ -1,15 +1,20 @@
 package com.app.ecommerce.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.app.ecommerce.enums.AtivoBloqStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,6 +35,11 @@ public class Cliente implements Serializable {
 	
 	@Getter
 	@Setter
+	@OneToMany(mappedBy="endCliId", cascade=CascadeType.ALL)
+	private List<Endereco> enderecos = new ArrayList<>();
+	
+	@Getter
+	@Setter
 	@Column(length = 45, name = "CLI_NOME")
 	private String cliNome;
 	
@@ -40,8 +50,14 @@ public class Cliente implements Serializable {
 	
 	@Getter
 	@Setter
-	@Column(name = "CLI_CPF", unique = true)
-	private String cliCpf;
+	@Column(name = "CLI_TIPO")
+	private String cliTipo;
+	
+	@Getter
+	@Setter
+	@CPF
+	@Column(name = "CLI_CPF_CNPJ", unique = true)
+	private String cliCpfCnpj;
 	
 	@Getter
 	@Setter
@@ -50,26 +66,18 @@ public class Cliente implements Serializable {
 	
 	@Column(name = "CLI_STATUS")
 	private Integer cliStatus;
-	
-	@Getter
-	@Setter
-	@JsonIgnore
-	@Column(name = "CLI_SENHA")
-	private String cliSenha;
 
 	public Cliente() {
 	}
 
-	public Cliente(Integer cliId, String cliNome, String cliCelular, String cliCpf, String cliEmail, AtivoBloqStatus cliStatus,
-			String cliSenha) {
+	public Cliente(Integer cliId, String cliNome, String cliCelular, String cliCpfCnpj, String cliEmail, AtivoBloqStatus cliStatus) {
 		super();
 		this.cliId = cliId;
 		this.cliNome = cliNome;
 		this.cliCelular = cliCelular;
-		this.cliCpf = cliCpf;
+		this.cliCpfCnpj = cliCpfCnpj;
 		this.cliEmail = cliEmail;
 		this.cliStatus = (cliStatus==null) ? null : cliStatus.getCod();
-		this.cliSenha = cliSenha;
 	}
 	
 	public AtivoBloqStatus getCliStatus() {
